@@ -1,0 +1,81 @@
+# Base Class
+class Parcel:
+    def __init__(self, parcel_id, sender, receiver, weight):
+        self.parcel_id = parcel_id
+        self.sender = sender
+        self.receiver = receiver
+        self.weight = weight
+
+    def display_details(self):
+        print("\nParcel Details")
+        print("Parcel ID :", self.parcel_id)
+        print("Sender    :", self.sender)
+        print("Receiver  :", self.receiver)
+        print("Weight    :", self.weight, "kg")
+
+
+# Derived Class for Goods Parcel
+class GoodsParcel(Parcel):
+    def __init__(self, parcel_id, sender, receiver, weight, goods_type):
+        super().__init__(parcel_id, sender, receiver, weight)
+        self.goods_type = goods_type
+
+    def calculate_charge(self):
+        return self.weight * 50
+
+    def display_goods(self):
+        self.display_details()
+        print("Goods Type:", self.goods_type)
+        print("Charge    : ₹", self.calculate_charge())
+
+
+# Derived Class for Express Parcel
+class ExpressParcel(Parcel):
+    def __init__(self, parcel_id, sender, receiver, weight, delivery_days):
+        super().__init__(parcel_id, sender, receiver, weight)
+        self.delivery_days = delivery_days
+
+    def calculate_charge(self):
+        return (self.weight * 80) + 100
+
+    def display_express(self):
+        self.display_details()
+        print("Delivery Days:", self.delivery_days)
+        print("Charge       : ₹", self.calculate_charge())
+
+
+# Main Program
+while True:
+    print("\n===== Goods & Parcel Management System =====")
+    print("1. Add Goods Parcel")
+    print("2. Add Express Parcel")
+    print("3. Exit")
+
+    choice = int(input("Enter choice: "))
+
+    if choice == 1:
+        pid = input("Parcel ID: ")
+        sender = input("Sender Name: ")
+        receiver = input("Receiver Name: ")
+        weight = float(input("Weight (kg): "))
+        goods_type = input("Goods Type: ")
+
+        gp = GoodsParcel(pid, sender, receiver, weight, goods_type)
+        gp.display_goods()
+
+    elif choice == 2:
+        pid = input("Parcel ID: ")
+        sender = input("Sender Name: ")
+        receiver = input("Receiver Name: ")
+        weight = float(input("Weight (kg): "))
+        days = int(input("Delivery Days: "))
+
+        ep = ExpressParcel(pid, sender, receiver, weight, days)
+        ep.display_express()
+
+    elif choice == 3:
+        print("Thank You!")
+        break
+
+    else:
+        print("Invalid Choice!")
